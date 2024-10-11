@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='weather.css') }}">
+    <meta http-equiv="refresh" content="1"> 
+</head>
+<body>
+    <div class="container">
+        <h1>Latest Arduino Data</h1>
+        <div class="latest-data">
+            <h2>Latest Data</h2>
+            <p>
+                Temperature: <span>{{ latest_data.temperature if latest_data else "No Data" }}</span> °C, 
+                Humidity: <span>{{ latest_data.humidity if latest_data else "No Data" }}</span> %, 
+                Light Level: <span>{{ latest_data.light_level if latest_data else "No Data" }}</span>
+            </p>
+        </div>
+        <div class="statistics">
+            <h2>Statistics</h2>
+            <div class="stat-item">
+                <h3>Temperature</h3>
+                <p>Average: <span>{{ avg_temp if avg_temp is not none else "No Data" }}</span> °C</p>
+                <p>Max: <span>{{ max_temp if max_temp is not none else "No Data" }}</span> °C</p>
+                <p>Min: <span>{{ min_temp if min_temp is not none else "No Data" }}</span> °C</p>
+            </div>
+            <div class="stat-item">
+                <h3>Humidity</h3>
+                <p>Average: <span>{{ avg_humidity if avg_humidity is not none else "No Data" }}</span> %</p>
+                <p>Max: <span>{{ max_humidity if max_humidity is not none else "No Data" }}</span> %</p>
+                <p>Min: <span>{{ min_humidity if min_humidity is not none else "No Data" }}</span> %</p>
+            </div>
+            <div class="stat-item">
+                <h3>Light Level</h3>
+                <p>Average: <span>{{ avg_light if avg_light is not none else "No Data" }}</span></p>
+                <p>Max: <span>{{ max_light if max_light is not none else "No Data" }}</span></p>
+                <p>Min: <span>{{ min_light if min_light is not none else "No Data" }}</span></p>
+            </div>
+        </div>
+        <div class="previous-readings">
+            <h2>Previous Readings</h2>
+            <ul>
+                {% for entry in previous %}
+                    <li>{{ entry.time }} - Temperature: {{ entry.temperature }}, Humidity: {{ entry.humidity }}, Light Level: {{ entry.light_level }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
